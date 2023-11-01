@@ -99,6 +99,39 @@
           }
         }
       }
+    },
+    "ngx-stateful-service": {
+      "projectType": "library",
+      "root": "projects/ngx-stateful-service",
+      "sourceRoot": "projects/ngx-stateful-service/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-stateful-service/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-stateful-service/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-stateful-service/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngx-stateful-service/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
