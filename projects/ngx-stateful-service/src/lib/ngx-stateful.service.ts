@@ -4,7 +4,7 @@ import {INITIAL_STATE} from "./ngx-stateful-service.tokens";
 import {InitialState} from "./ngx-stateful-service.model";
 
 @Injectable()
-export class NgxStatefulService<T extends InitialState> {
+export class StatefulService<T extends InitialState> {
   protected _state$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>inject(INITIAL_STATE, {optional: true}) ?? this.throwEmptyInitialStateError());
 
   public getWholeStateValue(): T {

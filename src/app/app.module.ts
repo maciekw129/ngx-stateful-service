@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {DemoComponent} from "./demo/demo.component";
 import {RouterModule, RouterOutlet} from "@angular/router";
-import {NgxStatefulServiceModule} from "ngx-stateful-service";
+import {StatefulServiceModule} from "ngx-stateful-service";
 import {DemoState} from "./demo/demo.model";
 
 @NgModule({
@@ -19,9 +19,9 @@ import {DemoState} from "./demo/demo.model";
         path: '',
         loadComponent: () => import('./demo/demo.component').then(m => m.DemoComponent),
         providers: [
-          importProvidersFrom(NgxStatefulServiceModule.withConfig<DemoState>({
+          importProvidersFrom(StatefulServiceModule.withConfig<DemoState>({
             initialState: {
-              todos: []
+              todos: ['Vacuum the apartment']
             }
           }))
         ]

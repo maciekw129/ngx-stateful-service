@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {NgxStatefulService} from "ngx-stateful-service";
+import {StatefulService} from "ngx-stateful-service";
 import {DemoState} from "./demo.model";
 import {CommonModule} from "@angular/common";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -15,10 +15,10 @@ import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
   ]
 })
 export class DemoComponent {
-  private readonly demoStatefulService = inject(NgxStatefulService<DemoState>);
+  private readonly demoStatefulService = inject(StatefulService<DemoState>);
   private readonly fb = inject(FormBuilder);
 
-  public form = this.fb.group({todo: ['', Validators.required]});
+  public form = this.fb.group({todo: [null, Validators.required]});
   public readonly todos$ = this.demoStatefulService.getStateSlice$('todos');
 
   public addTodo(todo: string): void {
