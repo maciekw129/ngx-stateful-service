@@ -5,7 +5,7 @@ import {NgxStatefulService} from "./ngx-stateful.service";
 
 @NgModule()
 export class NgxStatefulServiceModule {
-  static withConfig(config: StatefulServiceConfig): ModuleWithProviders<NgxStatefulServiceModule> {
+  static withConfig<T extends InitialState>(config: StatefulServiceConfig<T>): ModuleWithProviders<NgxStatefulServiceModule> {
     return {
       ngModule: NgxStatefulServiceModule,
       providers: [
