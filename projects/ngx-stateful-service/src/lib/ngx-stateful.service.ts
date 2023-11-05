@@ -5,7 +5,7 @@ import {InitialState} from "./ngx-stateful-service.model";
 
 @Injectable()
 export class NgxStatefulService<T extends InitialState> {
-  protected _state$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>inject(INITIAL_STATE));
+  protected _state$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>inject(INITIAL_STATE, {optional: true}) ?? this.throwEmptyInitialStateError());
 
   public getWholeStateValue(): T {
     return this._state$.value;
@@ -28,5 +28,9 @@ export class NgxStatefulService<T extends InitialState> {
       ...this._state$.value,
       ...stateSlice,
     });
+  }
+
+  private throwEmptyInitialStateError(): void {
+    throw new Error('stateful service: You must declare initial state before injecting service.')
   }
 }
