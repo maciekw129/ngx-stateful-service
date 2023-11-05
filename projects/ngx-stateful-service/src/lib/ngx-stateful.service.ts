@@ -5,10 +5,18 @@ import {InitialState} from "./ngx-stateful-service.model";
 
 @Injectable()
 export class NgxStatefulService<T extends InitialState> {
-  protected _state$$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>inject(INITIAL_STATE));
+  protected _state$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>inject(INITIAL_STATE));
+
+  public getWholeStateValue(): T {
+    return this._state$.value;
+  }
 
   public getWholeState$(): Observable<T> {
-    return this._state$$.asObservable();
+    return this._state$.asObservable();
+  }
+
+  public getStateSliceValue<K extends keyof T>(key: K): T[K] {
+    return this._state$.value[key];
   }
 
   public getStateSlice$<K extends keyof T>(key: K): Observable<T[K]> {
@@ -16,8 +24,8 @@ export class NgxStatefulService<T extends InitialState> {
   }
 
   public patchState(stateSlice: Partial<T>) {
-    this._state$$.next({
-      ...this._state$$.value,
+    this._state$.next({
+      ...this._state$.value,
       ...stateSlice,
     });
   }
