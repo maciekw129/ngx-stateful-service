@@ -1,6 +1,21 @@
 {
   "name": "ngx-stateful-service",
   "version": "0.0.1",
+  "description": "A lightweight state management for Angular",
+  "author": "Maciej Walecki",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maciekw129/ngx-stateful-service"
+  },
+  "bugs": {
+    "url": "https://github.com/maciekw129/ngx-stateful-service/issues"
+  },
+  "keywords": [
+    "angular",
+    "state",
+    "management",
+    "typescript"
+  ],
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0"
