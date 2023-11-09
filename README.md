@@ -1,27 +1,110 @@
-# StatefulService
+# Stateful Service :sparkles:
+> Lightweight state management for Angular.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.9.
+## Table of contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Example](#example)
 
-## Development server
+## Installation
+```
+npm i ngx-stateful-service
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Usage
+<strong>Initializing state with modules approach:</strong>
+```ts
+import { StatefulServiceModule } from 'ngx-stateful-service';
 
-## Code scaffolding
+interface ExampleState {
+  firstName: string;
+  todos: string[];
+}
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+@NgModule({
+  declarations: [
+    ExampleComponent
+  ],
+  imports: [
+    CommonModule,
+    StatefulServiceModule.withConfig<ExampleState>({
+      initialState: {
+        firstName: 'Maciej',
+        todos: ['Vacuum the apartment'],
+      }
+    })
+  ],
+  providers: []
+})
+export class ExampleModule { }
+```
 
-## Build
+<strong>Initializing state with standalone components approach:</strong>
+```ts
+interface ExampleState {
+  firstName: string;
+  todos: string[];
+}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterModule.forRoot([
+      {
+        path: '',
+        loadComponent: () => import('./example/example.component').then(m => m.ExampleComponent),
+        providers: [
+          importProvidersFrom(StatefulServiceModule.withConfig<ExampleState>({
+            initialState: {
+              firstName: 'Maciej',
+              todos: ['Vacuum the apartment'],
+            }
+          }))
+        ]
+      }
+    ])
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-## Running unit tests
+then, in components declared within this module, <strong>you have access to the previously initialized `StatefulService` instance</strong>:
+```ts
+import { StatefulService } from 'ngx-stateful-service';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({
+  selector: 'app-example',
+  templateUrl: './example.component.html'
+})
+export class ExampleComponent {
+  private readonly exampleStatefulService = inject(StatefulService<ExampleState>);
+}
+```
 
-## Running end-to-end tests
+`Stateful Service` has several methods by which we can extract data:
+```ts
+this.exampleStatefulService.getStateSlice$('todos'); // observable of ['Vacuum the apartment']
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+this.exampleStatefulService.getStateSliceValue('todos'); // ['Vacuum the apartment']
 
-## Further help
+this.exampleStatefulService.getWholeState$() // observable of {name: 'Maciej', todos: ['Vacuum the apartment']}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+this.exampleStatefulService.getWholeStateValue() // {name: 'Maciej', todos: ['Vacuum the apartment']}
+```
+
+and to update data you can use `patchState` method, which accepts `Partial` of your declared state interface:
+```ts
+this.exampleStatefulService.patchState({
+  todos: [...this.exampleStatefulService.getStateSliceValue('todos'), 'Cook dinner']
+})
+```
+
+## Example
+
+In this repository you can find `demo` component where an example of use is presented.
