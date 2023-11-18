@@ -4,6 +4,10 @@
 
 [Github repository](https://github.com/maciekw129/ngx-stateful-service)
 
+## Compatibility with Angular Versions
+
+Angular version `14.0.0` or higher is required."
+
 ## Table of contents
 
 - [Installation](#installation)
