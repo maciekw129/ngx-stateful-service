@@ -36,7 +36,7 @@ export class DemoComponent {
     this.demoStatefulService.resetWholeState();
   }
 
-  public submitForm() {
+  public submitForm(): void {
     const todoValue = this.form.controls.todo.value;
 
     if (todoValue !== null) {

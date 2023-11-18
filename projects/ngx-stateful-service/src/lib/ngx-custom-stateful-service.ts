@@ -46,7 +46,7 @@ export abstract class CustomStatefulService<T extends InitialState> {
     });
   }
 
-  public patchState(stateSlice: Partial<T>) {
+  public patchState(stateSlice: Partial<T>): void {
     this._state$.next({
       ...this._state$.value,
       ...stateSlice,
