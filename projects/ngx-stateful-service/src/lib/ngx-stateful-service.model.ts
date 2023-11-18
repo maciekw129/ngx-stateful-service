@@ -1,5 +1,5 @@
 export interface StatefulServiceConfig<T extends InitialState> {
-  initialState: T
+  initialState: T;
 }
 
 export type InitialState = Record<string, any>;

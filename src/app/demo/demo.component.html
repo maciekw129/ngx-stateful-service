@@ -1,17 +1,16 @@
 <main class="example">
   <h1>Stateful service example</h1>
 
-  <div *ngFor="let todo of todos$ | async; let index = index" class="example__todo">
-    <p>{{todo}}</p>
+  <div
+    *ngFor="let todo of todos$ | async; let index = index"
+    class="example__todo"
+  >
+    <p>{{ todo }}</p>
     <button (click)="removeTodo(index)">x</button>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="submitForm()" class="example__todo">
-    <input
-      name="Todo"
-      placeholder="Enter todo..."
-      formControlName="todo"
-    />
+    <input name="Todo" placeholder="Enter todo..." formControlName="todo" />
     <button type="submit">Add</button>
   </form>
 </main>

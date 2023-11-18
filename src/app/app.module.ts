@@ -1,15 +1,13 @@
-import {importProvidersFrom, NgModule} from '@angular/core';
+import { importProvidersFrom, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import {DemoComponent} from "./demo/demo.component";
-import {RouterModule, RouterOutlet} from "@angular/router";
-import {StatefulServiceModule} from "ngx-stateful-service";
-import {DemoState} from "./demo/demo.model";
+import { DemoComponent } from './demo/demo.component';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { StatefulServiceModule } from 'ngx-stateful-service';
+import { DemoState } from './demo/demo.model';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     DemoComponent,
@@ -17,18 +15,21 @@ import {DemoState} from "./demo/demo.model";
     RouterModule.forRoot([
       {
         path: '',
-        loadComponent: () => import('./demo/demo.component').then(m => m.DemoComponent),
+        loadComponent: () =>
+          import('./demo/demo.component').then((m) => m.DemoComponent),
         providers: [
-          importProvidersFrom(StatefulServiceModule.withConfig<DemoState>({
-            initialState: {
-              todos: ['Vacuum the apartment']
-            }
-          }))
-        ]
-      }
-    ])
+          importProvidersFrom(
+            StatefulServiceModule.withConfig<DemoState>({
+              initialState: {
+                todos: ['Vacuum the apartment'],
+              },
+            })
+          ),
+        ],
+      },
+    ]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
