@@ -55,7 +55,8 @@ interface ExampleState {
 export class ExampleModule {}
 ```
 
-###Initializing state with standalone components approach
+### Initializing state with standalone components approach
+
 The initialization of state in the standalone components approach resembles that of the module approach. However, in this case, <strong>you'll utilize the `importProvidersFrom` method to provide the `StatefulServiceModule`:</strong>
 
 ```ts
