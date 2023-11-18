@@ -32,6 +32,10 @@ export class DemoComponent {
     });
   }
 
+  public resetWholeState(): void {
+    this.demoStatefulService.resetWholeState();
+  }
+
   public submitForm() {
     const todoValue = this.form.controls.todo.value;
 
