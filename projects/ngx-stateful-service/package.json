@@ -1,6 +1,6 @@
 {
   "name": "ngx-stateful-service",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A lightweight state management for Angular",
   "author": "Maciej Walecki",
   "repository": {
