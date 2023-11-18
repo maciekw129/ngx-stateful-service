@@ -6,7 +6,7 @@
 
 ## Compatibility with Angular Versions
 
-Angular version `14.0.0` or higher is required."
+Angular version `14.0.0` or higher is required.
 
 ## Table of contents
 
