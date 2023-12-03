@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import {BehaviorSubject, Observable, map, distinctUntilKeyChanged, tap} from 'rxjs';
 import { InitialState } from './ngx-stateful-service.model';
 import { INITIAL_STATE } from './ngx-stateful-service.tokens';
 
@@ -36,7 +36,7 @@ export abstract class CustomStatefulService<T extends InitialState> {
   }
 
   public getStateSlice$<K extends keyof T>(key: K): Observable<T[K]> {
-    return this.getWholeState$().pipe(map((state: T) => state[key]));
+    return this.getWholeState$().pipe(distinctUntilKeyChanged(key), map((state: T) => state[key]));
   }
 
   public resetStateSlice<K extends keyof T>(key: K): void {
